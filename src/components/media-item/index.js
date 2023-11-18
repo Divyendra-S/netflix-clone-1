@@ -1,0 +1,66 @@
+'use client'
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { Axios } from "@/helper/httpHelper";
+import { useSession } from "next-auth/react";
+import { AppContext } from "@/context";
+import { useContext } from "react";
+import {
+  PlusIcon,
+  ChevronDownIcon,
+  CheckIcon,
+} from "@heroicons/react/24/outline";
+//import mission from '../../../public/mission.jpg' /Users/divyendra/Documents/netflix-clone1/my-net/public/mission.jpg
+const baseUrl = "https://image.tmdb.org/t/p/w500";
+
+export const MediaItem = ({ media }) => {
+  const {LoggedIn, setFavorites} = useContext(AppContext);
+  const router = useRouter();
+  const {data: session} = useSession();
+  const addToFavorites = async(item)=>{
+    const { backdrop_path, poster_path, id, type } = item;
+    try {
+      const res = await Axios.post(`/api/favorites/add-favorite`, {
+        backdrop_path,
+        poster_path,
+        movieID: id,
+        type,
+        uid: session?.user?.uid,
+        accountID: LoggedIn?._id,
+      })
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  return (
+    <div className="relative group flex items-end justify-center   h-28 min-w-[180px] cursor-pointer md:h-36 md:min-w-[260px] transform transition duration-500 hover:scale-110 hover:z-[999]">
+      <Image
+        src={`${baseUrl}${media?.backdrop_path || media?.poster_path}`}
+        fill={true}
+        alt="Media"
+        sizes="(min-width: 66em) 33vw,
+  (min-width: 44em) 50vw,
+  100vw"
+        className="rounded sm w-7 md:rounded hover:rounded-sm"
+        onClick={()=>{
+          router.push(`/watch/${media?.type}/${media?.id}`)
+        }}
+      />
+      <button
+            onClick={
+              ()=>{
+                addToFavorites(media)
+              }
+            }
+            className={`opacity-0 cursor-pointer border flex p-2 items-center gap-x-2 rounded-full  text-sm font-semibold transition group-hover:opacity-90 border-white   bg-black  text-black`}
+          >
+            {media?.addedToFavorites ? (
+              <CheckIcon color="#ffffff" className="h-7 w-7" />
+            ) : (
+              <PlusIcon color="#ffffff" className="h-7 w-7" />
+            )}
+          </button>
+    </div>
+  );
+};
+// {`${baseUrl}${media?.backdrop_path || media?.poster_path}`}
