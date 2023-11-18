@@ -12,7 +12,7 @@ export default function Navbar() {
           height={120}
           className="w-28 sm:w-36 lg:w-52 ml-4 sm:ml-8 pt-4"
         />
-        <button onClick={()=>{signIn("google")}} className=" bg-red-600 h-8 mt-5 p-2 text-center flex items-center rounded">Sign In</button>
+        <button onClick={()=>{signIn("github")}} className=" bg-red-600 h-8 mt-5 p-2 text-center flex items-center rounded">Sign In</button>
       </header>
     </div>
   );

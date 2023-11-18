@@ -124,9 +124,9 @@ export const ManageAccounts = () => {
 
   return (
     <>
-      <button onClick={() => signOut("google")} className="bg-gray-900 w-screen flex justify-end text-right pr-6 pt-4"><div className=" bg-red-500 w-20 rounded text-center ">Sign Out</div></button>
+      <button onClick={() => signOut("github")} className="bg-gray-900 w-screen flex justify-end text-right pr-6 pt-4"><div className=" bg-red-500 w-20 rounded text-center ">Sign Out</div></button>
       <div className="flex h-screen justify-center  bg-gray-900 flex-col">
-       <h1 className=" text-white text-5xl text-center font-bold"> who's watching</h1>
+       <h1 className={` text-white text-5xl text-center font-bold ${Account.length < 1 ? " mb-24" : null} `}> who's watching</h1>
       <div className=" flex  gap-3 items-center  justify-center ">
         {Account && Account.length > 0
           ? Account.map((item) => {
@@ -241,7 +241,7 @@ export const ManageAccounts = () => {
           <span
             onClick={() => {setDeleteIcon(!deleteicon)
             setOpacity(!opacity)}}
-            className="border text-white mt-2 border-gray-100 cursor-pointer tracking-wide inline-flex text-sm px-[1.5em] py-[0.5em]"
+            className={`border text-white mt-2 ${Account.length < 1 ? " mt-24" : null} border-gray-100 cursor-pointer tracking-wide inline-flex text-sm px-[1.5em] py-[0.5em]`}
           >
             Manage Profiles
           </span>
