@@ -5,7 +5,8 @@ import { NextResponse } from "next/server";
 export async function GET(req) {
   try {
     await connectDb();
-    const searchParams = req.nextUrl.searchParams;
+    const { searchParams } = new URL(req.url);
+    //const searchParams = req.nextUrl.searchParams;
     const id = searchParams.get("id");
     console.log("iddddddd", id);
     const users = await User.find({uid: id});
