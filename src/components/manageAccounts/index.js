@@ -123,13 +123,13 @@ export const ManageAccounts = () => {
   };
 
   return (
-    <>
+    <>{console.log(Account)}
       <button onClick={() => signOut("github")} className="bg-gray-900 w-screen flex justify-end text-right pr-6 pt-4"><div className=" bg-red-500 w-20 rounded text-center ">Sign Out</div></button>
       <div className="flex h-screen justify-center  bg-gray-900 flex-col">
        <h1 className={` text-white text-5xl text-center font-bold ${Account.length < 1 ? " mb-24" : null} `}> who's watching</h1>
       <div className=" flex  gap-3 items-center  justify-center ">
         {Account && Account.length > 0
-          ? Account.map((item) => {
+          ? Account?.map((item) => {
               return (
                 <li
                   className=" max-w-[200px]  w-[155] gap-3 items-center mt-6 cursor-pointer "
@@ -171,7 +171,7 @@ export const ManageAccounts = () => {
             })
           : null}
           <div className="text-white">
-        {Account && Account.length < 4 ? (
+        {Account && Account?.length < 4 ? (
           <Dialog>
             <DialogTrigger asChild>
               <Button variant=" outline" className=" w-[150px]">
