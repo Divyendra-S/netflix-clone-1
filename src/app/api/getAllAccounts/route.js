@@ -6,10 +6,10 @@ export async function GET(req) {
   try {
     await connectDb();
     //const { searchParams } = new URL(req.url);
-    const searchParams = req.nextUrl.searchParams;
-    const id = searchParams.get("id");
+    //const searchParams = req.nextUrl.searchParams;
+    const id = '65616112'
     console.log("iddddddd", id);
-    const users = await User.find();
+    const users = await User.find({uid: id});
     return NextResponse.json({
       sucess: true,
       message: users,
@@ -22,4 +22,4 @@ export async function GET(req) {
     });
   }
 }
-//{uid: id}
+//{uid: id} searchParams.get("id");

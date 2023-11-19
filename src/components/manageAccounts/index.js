@@ -42,7 +42,7 @@ export const ManageAccounts = () => {
     setLoader(true);
     try {
       const result = await Axios.get(
-        `api/getAllAccounts?id=65616112`
+        `/api/getAllAccounts?id=65616112`
       );
       if (result.data && result.data.message) {
         setAccount(result.data.message);
@@ -85,7 +85,7 @@ export const ManageAccounts = () => {
   };
   const deleteAccount = async (item) => {
     try {
-      const res = await Axios.delete(`api/deleteAccount?id=${item._id}`).then(
+      const res = await Axios.delete(`/api/deleteAccount?id=${item._id}`).then(
         (response) => {
           response.data;
         }
@@ -100,7 +100,7 @@ export const ManageAccounts = () => {
   const login = async (value) => {
     setLoader(true);
     try {
-      const result = await Axios.post(`api/login`, {
+      const result = await Axios.post(`/api/login`, {
         pin: value,
         accountId: showPinContainer.account._id,
         uid: session?.user?.uid,
