@@ -9,7 +9,7 @@ export async function GET(req) {
     //const searchParams = req.nextUrl.searchParams;
     const id = '65616112'
     console.log("iddddddd", id);
-    const users = await User.find({uid: id});
+    const users = await User.find();
     return NextResponse.json({
       sucess: true,
       message: users,
