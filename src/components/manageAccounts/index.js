@@ -43,7 +43,7 @@ export const ManageAccounts = () => {
     setLoader(true);
     try {
       const result = await Axios.get(
-        `api/getAllAccounts?id=${session?.user?.uid}`
+        `/api/getAllAccounts?id=${session?.user?.uid}`
       );
       if (result.data && result.data.message) {
         setAccount(result.data.message);
