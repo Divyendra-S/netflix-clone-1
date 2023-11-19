@@ -38,29 +38,29 @@ export const ManageAccounts = () => {
   const [showAccountForm, setShowAccountForm] = useState(false);
   const [opacity, setOpacity] = useState(false);
   const { data: session } = useSession();
-
+  const getAllAccounts = async () => {
+    setLoader(true);
+    try {
+      const result = await Axios.get(
+        `/api/getAllAccounts?id=65616112`
+      );
+      if (result.data && result.data.message) {
+        setAccount(result.data.message);
+        setLoader(false);
+        console.log(result);
+      } else {
+        setLoader(false);
+        console.log("Account");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   
   useEffect(() => {
-    const getAllAccounts = async () => {
-      setLoader(true);
-      try {
-        const result = await Axios.get(
-          `api/getAllAccounts?id=${session?.user?.uid}`
-        );
-        if (result.data && result.data.message) {
-          setAccount(result.data.message);
-          setLoader(false);
-          console.log(result);
-        } else {
-          setLoader(false);
-          console.log("Account");
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    
     getAllAccounts();
-  }, [session]);
+  }, []);
 
   const createAccount = async (formData) => {
     setLoader(true);
@@ -262,3 +262,4 @@ export const ManageAccounts = () => {
     </>
   );
 };
+//${session?.user?.uid}
