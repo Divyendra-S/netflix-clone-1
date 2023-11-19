@@ -123,7 +123,7 @@ export const ManageAccounts = () => {
   };
 
   return (
-    <>{console.log(Account)}
+    <>{console.log("accounttttt",Account)}
       <button onClick={() => signOut("github")} className="bg-gray-900 w-screen flex justify-end text-right pr-6 pt-4"><div className=" bg-red-500 w-20 rounded text-center ">Sign Out</div></button>
       <div className="flex h-screen justify-center  bg-gray-900 flex-col">
        <h1 className={` text-white text-5xl text-center font-bold ${Account.length < 1 ? " mb-24" : null} `}> who's watching</h1>
