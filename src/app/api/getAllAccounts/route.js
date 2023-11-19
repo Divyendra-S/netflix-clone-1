@@ -7,8 +7,8 @@ export async function GET(req) {
     await connectDb();
     //const { searchParams } = new URL(req.url);
     //const searchParams = req.nextUrl.searchParams;
-    const id = '65616112'
-    console.log("iddddddd", id);
+    // const id = '65616112'
+    // console.log("iddddddd", id);
     const users = await User.find();
     return NextResponse.json({
       sucess: true,
