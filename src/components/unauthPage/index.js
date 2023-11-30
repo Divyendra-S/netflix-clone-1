@@ -6,10 +6,11 @@ import Navbar from "./navbar";
 import Banner from "./banner";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function UnAuthPage() {
   const [ans, setAns] = useState(null);
-  const [shows, setShows] = useState(false);
+  const [shows, setShows] = useState(true);
   const { data: session } = useSession();
   console.log(session?.user);
   const questions = [
@@ -57,7 +58,7 @@ export default function UnAuthPage() {
         <h1 className=" text-5xl text-white mt-6 font-extrabold">
           Frequently Asked Questions
         </h1>
-        <div className="  text-white p-7   text-2xl">
+        <div className="  text-white p-7 h-[60rem]  text-2xl">
           {questions.map((item) => (
             <div key={item.id} className={`flex flex-col items-center`}>
               
@@ -69,15 +70,21 @@ export default function UnAuthPage() {
                 <PlusIcon
                   className="h-7 w-7"
                   color="white"
-                  onClick={() => {
+                  onClick={() => {  
+                    if(ans === item.id){
+                      setShows(!shows)
+                    }else{
+                    setShows(true);}
                     setAns(item.id);
-                    setShows(!shows)
                   }}
                 />
                 {console.log(ans,"anssssss")}
                 
               </div>
-              {ans === item.id && shows && <div className={`transition-all text-xl transform duration-500 ease-in-out ${shows ? 'max-h-[1000px]' : 'max-h-0'} w-full lg:w-[1000px] bg-zinc-800 p-4  border-t border-black `}>{item.ans}</div>}
+              <div className=" overflow-hidden">
+              {ans === item.id && shows  && <motion.div initial={{ opacity: 1, y: -100 }}
+      animate={{ opacity: 1, y:0 }}
+      transition={{ duration: 0.1 }} exit={{ opacity: 0, y: -100 }} className={`transition-all text-xl transform duration-500 ease-in-out  ${ans === item.id ? 'max-h-[1000px]' : 'max-h-0'} w-full lg:w-[1000px] bg-zinc-800 p-4  border-t border-black `}>{item.ans}</motion.div>}</div>
             </div>
           ))}
         </div>

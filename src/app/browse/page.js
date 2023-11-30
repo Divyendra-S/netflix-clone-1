@@ -1,9 +1,9 @@
 "use client";
-import { ManageAccounts } from "@/components/manageAccounts";
+
 import { useSession } from "next-auth/react";
 import UnAuthPage from "@/components/unauthPage";
 import { AppContext } from "@/context";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect,useState } from "react";
 import {
   getAllFavorites,
   GetPopularMedias,
@@ -11,12 +11,15 @@ import {
   GetTrendingMedias,
 } from "@/Utils";
 import { CommonLayout } from "@/components/commonLayout";
+import CircleLoader from "@/components/Loader";
 
 export default function Browse(){
+  const[loader, setLoader] = useState(false);
   const { LoggedIn, pageLoader, setMedia, media } = useContext(AppContext);
   const { data: session } = useSession();
   useEffect(() => {
     const getAllMedia = async () => {
+      setLoader(true);
       const getPopularMovies = await GetPopularMedias("movie");
       const getTrendingMovies = await GetTrendingMedias("movie");
       const getTopratedMovies = await GetTopratedMedias("movie");
@@ -25,7 +28,7 @@ export default function Browse(){
       const getTrendingTv = await GetTrendingMedias("tv");
       const getTopratedTv = await GetTopratedMedias("tv");
       console.log("getPopularMovies", getTrendingMovies);
-      const getFavorites = await getAllFavorites(session?.user?.uid, LoggedIn?._id);
+      setLoader(false);
 
 
       setMedia([
@@ -56,7 +59,8 @@ export default function Browse(){
     getAllMedia();
   }, []);
   if (session === null) return <UnAuthPage />;
-  if (LoggedIn === null) return <ManageAccounts />;
+  if (loader) return <CircleLoader />;
+  
 
-  return <div className=" bg-[#141414] text-yellow-50 p-5"><CommonLayout mediaData={media}/></div>;
+  return <div className=" bg-[#141414] text-yellow-50 "><CommonLayout mediaData={media}/></div>;
 };

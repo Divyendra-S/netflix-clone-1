@@ -6,41 +6,48 @@ import { useSession, signOut } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import Search from "./search";
 import { AiOutlineSearch } from "react-icons/ai";
-import AccountPopUp from "./AccountPop";
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import Nav from "@/app/nav/page";
 import Image from "next/image";
+import Link from "next/link";
 
 export const Navbar = () => {
+  const [clicked, setClicked] = useState();
   const [isScrolled, setScrolled] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [accountPopup, setAccountPopup] = useState(false);
   const { data: session } = useSession();
-  const { Account, setAccount, LoggedIn, setLoggedIn, loader, setLoader } =
-    useContext(AppContext);
+  const { LoggedIn, setLoggedIn, loader, setLoader } = useContext(AppContext);
   const router = useRouter();
   const pathName = usePathname();
+
   const options = [
     {
       title: "Home",
-      id: "home",
+      id: 1,
       path: "/",
     },
     {
       title: "Movies",
-      id: "movies",
+      id: 2,
       path: "/movies",
     },
+  ];
+  const options2 = [
     {
       title: "Tv",
-      id: "tv",
+      id: 3,
       path: "/tv",
     },
     {
       title: "My list",
-      id: "myList",
-      path: `/myList/${session?.user?.uid}/${LoggedIn?._id}`,
+      id: 4,
+      path: `/tv`,
     },
   ];
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {
@@ -55,92 +62,106 @@ export const Navbar = () => {
     };
   }, []);
 
-  useEffect(()=> {
-    const getAllAccounts = async () => {
-      try {
-        const res = await Axios.get(
-          `/api/getAllAccounts?id=${session?.user?.uid}`
-        );
-        if (res.data.sucess) {
-          setAccount(res.data.message);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getAllAccounts();
-  },[session])
-  
   return (
-    <div className=" relative z-[999]">
-      <header
-        className={`hover:bg-[#141414] ${
-          isScrolled ? "bg-[#141414]" : "bg-[#141414] bg-opacity-25"
-        }  transition-all duration-200 left-0 top-0 fixed h-[60px] flex items-center justify-between w-full`}
-      >
-        <div className="flex px-5">
-          <img
-            src="https://rb.gy/ulxxee"
-            width={120}
-            height={120}
-            alt="NETFLIX"
-            className="cursor-pointer object-contain"
-            onClick={() => router.push("/")}
-          />
-          <ul className="flex px-8">
-            {options.map((item) => (
-              <li
-                key={item.id}
-                className="cursor-pointer text-[20px] px-2 pt-1 text-[#ffffff]"
-                onClick={() => router.push(`${item.path}`)}
-              >
-                {item.title}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className=" flex mr-6">
-          <div>
-            {showSearch ? (
-              <Search
-                pathName={pathName}
-                router={router}
-                setLoader={setLoader}
-                setShowSearch={setShowSearch}
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
-              />
-            ) : (
-              <AiOutlineSearch
-                onClick={() => setShowSearch(true)}
-                className=" mr-5 sm:inline w-6 h-6 cursor-pointer"
-              />
-            )}
-          </div>
-          <div
-            className=" mr-10  flex cursor-pointer "
-            onClick={() => {
-              setAccountPopup(!accountPopup);
-            }}
-          >
+    <motion.div
+      initial={{ opacity: 0, y: -100 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9 }}
+      className=" relative z-[999]"
+    >
+      <div className=" ">
+        <motion.header
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+          className={`transition-all duration-200 left-0 top-0 mt-4 absolute h-[60px] flex items-center justify-between w-full`}
+        >
+          <div className="flex w-full justify-center  px-5">
+            <motion.ul
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.9 }}
+              className="flex gap-x-4 px-12"
+            >
+              {options.map((item) => (
+                <li
+                  key={item.id}
+                  className={cn(
+                    "cursor-pointer hidden sm:block text-neutral-500 font-heebo  text-[16px] px-3 pt-1 transition duration-300 hover:scale-125 hover:text-white",
+                    {
+                      " text-white scale-105": item.path === pathName,
+                    }
+                  )}
+                  onClick={() => {
+                    router.push(`${item.path}`);
+                    setClicked(pathName);
+                  }}
+                >
+                  {item.title}
+                </li>
+              ))}
+            </motion.ul>
+            <div className="bg-gradient-to-b top-[-18rem] -z-20 absolute  h-screen w-full from-black to-transparent"></div>
+            {/* <div className="bg-[#160404] absolute top-[-5rem] -z-10  h-[12rem] w-[31.5]  blur-[6rem]  sm:w-[1000px] "></div> */}
+            <div className="bg-[#fb2229]  absolute top-[-18rem] -z-10 right-[38rem] h-[31.5rem] w-[31.5] rounded-full blur-[14rem] opacity-80  sm:w-[20rem] "></div>
             <img
-              src="https://occ-0-2611-3663.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABfNXUMVXGhnCZwPI1SghnGpmUgqS_J-owMff-jig42xPF7vozQS1ge5xTgPTzH7ttfNYQXnsYs4vrMBaadh4E6RTJMVepojWqOXx.png?r=1d4"
-              alt="Current Profile"
-              className="max-w-[30px] rounded min-w-[20px] mr-2 max-h-[30px] min-h-[20px] object-cover w-[30px] h-[30px]"
+              src="https://rb.gy/ulxxee"
+              width={120}
+              height={120}
+              alt="NETFLIX"
+              className="cursor-pointer object-contain mx-4"
+              onClick={() => router.push("/")}
             />
-            <p className=" mt-1"> {LoggedIn && LoggedIn.name} </p>
+
+            <motion.ul
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.9 }}
+              className="flex gap-x-4 px-12"
+            >
+              {options2.map((item) => (
+                <li
+                  key={item.id}
+                  className={cn(
+                    "cursor-pointer hidden sm:block text-neutral-500 font-heebo  text-[16px] px-3 pt-1 transition duration-300 hover:scale-125 hover:text-white",
+                    {
+                      " text-white scale-105": item.path === pathName,
+                    }
+                  )}
+                  onClick={() => {
+                    router.push(`${item.path}`);
+                    setClicked(item.id);
+                  }}
+                >
+                  {item.title}
+                </li>
+              ))}
+            </motion.ul>
           </div>
+        </motion.header>
+
+        <div
+          onClick={() => {
+            router.push("/nav");
+          }}
+          className=" absolute flex items-center mr-8 transition duration-300 hover:scale-150  mt-8 right-0 z-[999] cursor-pointer "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25"
+            />
+          </svg>
         </div>
-      </header>
-      {accountPopup && (
-        <AccountPopUp
-          signOut={signOut}
-          Account={Account}
-          setAccountPopup={setAccountPopup}
-          LoggedIn={LoggedIn}
-          setLoggedIn={setLoggedIn}
-        />
-      )}
-    </div>
+      </div>
+    </motion.div>
   );
 };

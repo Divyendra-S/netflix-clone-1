@@ -1,9 +1,9 @@
 "use client";
-import { ManageAccounts } from "@/components/manageAccounts";
+
 import { useSession } from "next-auth/react";
 import UnAuthPage from "@/components/unauthPage";
 import { AppContext } from "@/context";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   getAllFavorites,
   GetPopularMedias,
@@ -12,26 +12,30 @@ import {
 } from "@/Utils";
 import { Navbar } from "@/components/navbar";
 import { MediaItem } from "@/components/media-item";
+import CircleLoader from "@/components/Loader";
+import { motion } from "framer-motion";
+
 
 
 
 
 export default function Tv(){
-  const { LoggedIn, pageLoader, setMedia, media } = useContext(AppContext);
+  const[loader, setLoader] = useState(false);
+
+  const {  pageLoader, setMedia, media } = useContext(AppContext);
   const { data: session } = useSession();
   useEffect(() => {
     const getAllMedia = async () => {
+      setLoader(true);
       const getPopularTv = await GetPopularMedias("tv");
       const getTrendingTv = await GetTrendingMedias("tv");
       const getTopratedTv = await GetTopratedMedias("tv");
-      const getFavorites = await getAllFavorites(session?.user?.uid, LoggedIn?._id);
-
+      //const getFavorites = await getAllFavorites(session?.user?.uid, LoggedIn?._id);
+      setLoader(false);
 
       setMedia([
         ...[
           { title: "tv", Medias: getPopularTv },
-          { title: "tv", Medias: getTrendingTv },
-          { title: "tv", Medias: getTopratedTv },
         ].map((item) => ({
           ...item,
           Medias: item.Medias.map((medias) => ({
@@ -43,16 +47,17 @@ export default function Tv(){
     getAllMedia();
   }, []);
   if (session === null) return <UnAuthPage />;
-  if (LoggedIn === null) return <ManageAccounts />;
+  if (loader) return <CircleLoader />;
+  
   console.log(media?.[0]?.Medias, "mediaaaaaaaaa");
 
   return (
-    <div className=" bg-[#141414] text-yellow-50 w-screen min-h-screen ">
+    <div className=" bg-black relative text-yellow-50 top-0  text-center sm:text-left  w-screen min-h-screen ">
       <Navbar />
-       <div className="flex pt-[100px] relative flex-wrap justify-center  gap-3 items-center pl-7 ">
+       <div className="flex pt-[100px] absolute flex-wrap mr-6 sm:mr-0 justify-center sm:justify-start z-[999]  gap-3  pl-7 mt-14">
         {media?.map((item)=>(
-          item?.Medias.map((medias) => (
-            <MediaItem key={medias.id} media={medias} />
+          item?.Medias.map((medias, id) => (
+            <MediaItem key={medias.id} media={medias} id={id}/>
           ))))
         }
       </div> 

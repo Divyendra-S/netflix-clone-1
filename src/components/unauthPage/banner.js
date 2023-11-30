@@ -1,9 +1,14 @@
+'use client'
 import Image from "next/image";
 import { signIn } from "next-auth/react";
+import { motion } from "framer-motion";
+
 
 export default function Banner() {
   return (
-    <div className="flex flex-col h-[95vh] text-white items-center justify-center ">
+    <motion.div initial={{ opacity: 0 }}
+    animate={{ opacity: 1}}
+    transition={{ duration: 1.5 }} className="flex flex-col h-[95vh] text-white items-center justify-center ">
     <div className="absolute h-[95vh] w-screen bg-[#141414] ">
       <div className="relative top-0 left-0 w-full h-[95vh] bg-black opacity-70 z-10"></div>
 
@@ -21,6 +26,6 @@ export default function Banner() {
     <div className="text-6xl z-50 flex items-center text-center justify-center"> Unlimited movies, TV</div>
     <div className="text-5xl z-50 flex items-center text-center justify-center"> shows, and more..</div>
     <button onClick={()=>{signIn("google")}} className=" z-50 bg-red-600 justify-center  mt-5 p-4 py-4 h-14 text-center w-48 flex items-center rounded">Sign In Get Started..</button>
-    </div>
+    </motion.div>
   );
 }
