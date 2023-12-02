@@ -9,7 +9,7 @@ export async function GET(req) {
     // const searchParams = req.nextUrl.searchParams;
     // const id = searchParams.get("id");
     //console.log("iddddddd", id);
-    const users = await User.find({ uid: 65616112 });
+    const users = await User.find();
     return NextResponse.json({
       sucess: true,
       message: users,
@@ -22,4 +22,4 @@ export async function GET(req) {
     });
   }
 }
-//{uid: id} searchParams.get("id");
+//{uid: id} searchParams.get("id"); { uid: 65616112 }
