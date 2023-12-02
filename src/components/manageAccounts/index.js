@@ -57,7 +57,7 @@ export const ManageAccounts = () => {
     }
   };
   useEffect(() => {
-    getAllAccounts();
+   return getAllAccounts();
   },[]);
   
   
