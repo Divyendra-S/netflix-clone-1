@@ -3,6 +3,10 @@ import User from "@/models/Account";
 import { NextResponse } from "next/server";
 import mongoose from 'mongoose';
 
+
+
+export const dynamic = 'force-dynamic'
+
 export async function GET(req) {
   try {
     await connectDb();
