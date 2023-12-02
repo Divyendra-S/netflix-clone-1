@@ -45,7 +45,7 @@ export const ManageAccounts = () => {
     setLoader(true);
     try {
       const result = await Axios.get(
-        `/api/getAllAccounts`, {
+        `/api/getAllAccounts?id=${session?.user?.uid}`, {
             headers: {
               'Cache-Control': 'no-store'  
             }
