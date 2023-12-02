@@ -10,7 +10,7 @@ export async function GET(req) {
     // const searchParams = req.nextUrl.searchParams;
     // const id = searchParams.get("id");
     //console.log("iddddddd", id);
-    await mongoose.connection.collection('USER').drop(); 
+    
     const users = await User.find();
     return NextResponse.json({
       sucess: true,
