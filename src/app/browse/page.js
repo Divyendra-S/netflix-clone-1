@@ -60,7 +60,7 @@ export default function Browse(){
   }, []);
   if (session === null) return <UnAuthPage />;
   if (loader) return <CircleLoader />;
-  if (LoggedIn === null) return <ManageAccounts />
+  //if (LoggedIn === null) return <ManageAccounts />
   
 
   return <div className=" bg-[#141414] text-yellow-50 "><CommonLayout mediaData={media}/></div>;
