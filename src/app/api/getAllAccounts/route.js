@@ -1,6 +1,7 @@
 import connectDb from "@/database";
 import User from "@/models/Account";
 import { NextResponse } from "next/server";
+import mongoose from 'mongoose';
 
 export async function GET(req) {
   try {
