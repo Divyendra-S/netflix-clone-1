@@ -26,7 +26,7 @@ export async function GET(req) {
       message: users
     });
 
-    response.headers.set('Cache-Control', 'no-store');
+    //response.headers.set('Cache-Control', 'no-store');
 
     return response;
   } catch (error) {
