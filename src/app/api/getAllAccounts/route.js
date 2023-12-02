@@ -12,10 +12,19 @@ export async function GET(req) {
     //console.log("iddddddd", id);
     
     const users = await User.find();
-    return NextResponse.json({
-      sucess: true,
-      message: users,
+    // return NextResponse.json({
+    //   sucess: true,
+    //   message: users,
+    // });
+
+    const response = NextResponse.json({
+      success: true,
+      message: users
     });
+
+    response.headers.set('Cache-Control', 'no-store');
+
+    return response;
   } catch (error) {
     console.log(error);
     return NextResponse.json({
