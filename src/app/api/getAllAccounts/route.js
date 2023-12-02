@@ -6,10 +6,10 @@ export async function GET(req) {
   try {
     await connectDb();
     //const { searchParams } = new URL(req.url);
-    // const searchParams = req.nextUrl.searchParams;
-    //  const id = searchParams.get("id")
-    //  console.log("iddddddd", id);
-    const users = await User.find();
+    const searchParams = req.nextUrl.searchParams;
+     const id = searchParams.get("id")
+     console.log("iddddddd", id);
+    const users = await User.find({uid: id});
     return NextResponse.json({
       sucess: true,
       message: users,
