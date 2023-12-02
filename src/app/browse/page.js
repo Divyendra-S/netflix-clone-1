@@ -1,5 +1,5 @@
 "use client";
-
+import { ManageAccounts } from "@/components/manageAccounts";
 import { useSession } from "next-auth/react";
 import UnAuthPage from "@/components/unauthPage";
 import { AppContext } from "@/context";
@@ -60,6 +60,7 @@ export default function Browse(){
   }, []);
   if (session === null) return <UnAuthPage />;
   if (loader) return <CircleLoader />;
+  if (LoggedIn === null) return <ManageAccounts />
   
 
   return <div className=" bg-[#141414] text-yellow-50 "><CommonLayout mediaData={media}/></div>;
