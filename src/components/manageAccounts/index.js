@@ -42,7 +42,11 @@ export const ManageAccounts = () => {
     setLoader(true);
     try {
       const result = await Axios.get(
-        `/api/getAllAccounts`
+        `/api/getAllAccounts`, {
+            headers: {
+              'Cache-Control': 'no-store'  
+            }
+          }
       );
       if (result.data && result.data.message) {
         setAccount(result.data.message);
@@ -68,6 +72,9 @@ export const ManageAccounts = () => {
       const res = await Axios.post(`/api/createAccount`, {
         ...formData,
         uid: session?.user?.uid,
+        headers: {
+            'Cache-Control': 'no-store'  
+          }
       });
       console.log(res);
       if (res.data.sucess) {
@@ -85,7 +92,11 @@ export const ManageAccounts = () => {
   };
   const deleteAccount = async (item) => {
     try {
-      const res = await Axios.delete(`/api/deleteAccount?id=${item._id}`).then(
+      const res = await Axios.delete(`/api/deleteAccount?id=${item._id}`,{
+        headers: {
+            'Cache-Control': 'no-store'  
+          }
+      }).then(
         (response) => {
           response.data;
         }
