@@ -56,6 +56,9 @@ export const ManageAccounts = () => {
       console.log(error);
     }
   };
+  useEffect(() => {
+    getAllAccounts();
+  },[]);
   
   
 
