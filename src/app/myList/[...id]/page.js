@@ -43,7 +43,7 @@ export default function MyList() {
   return (
     <div className=" bg-[#141414] text-yellow-50 w-screen h-screen ">
       <Navbar />
-      <div className="flex pt-[100px] relative flex-wrap  gap-3 items-center pl-7 ">
+      <div className="flex pt-[100px] relative z-[999] flex-wrap  gap-3 items-center pl-7 ">
         {Favorites.map((item,id) => (
             <MediaItem key={item._id} media={item} id={id}/>
         ))}
