@@ -70,6 +70,8 @@ export default function Browse() {
               ? allFavorites?.data.data.map((fav) => {
                   if (fav.movieID === medias.id) {
                     return true;
+                  }else{
+                    return false;
                   }
                 })
               : false,
