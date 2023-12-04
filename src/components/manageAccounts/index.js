@@ -143,7 +143,7 @@ export const ManageAccounts = () => {
       <div className="flex h-screen justify-center  bg-gray-900 flex-col">
        <h1 className={` text-white text-5xl text-center font-bold ${Account?.length < 1 ? " mb-24" : null} `}> who's watching</h1>
       <div className=" flex  gap-3 items-center  justify-center ">
-        {Account && Account.length > 0
+        {Account?.length > 0
           ? Account?.map((item) => {
               return (
                 <li
@@ -186,11 +186,11 @@ export const ManageAccounts = () => {
             })
           : null}
           <div className="text-white">
-        {Account && Account?.length < 4 ? (
+        { Account?.length < 4 ? (
           <Dialog>
             <DialogTrigger asChild>
               <Button variant=" outline" className=" w-[150px]">
-                {Account && Account.length < 4 ? (
+                {Account?.length < 4 ? (
                   <li
                     onClick={() => setShowAccountForm(!showAccountForm)}
                     className="max-w-[200px] min-w-[150px] flex items-center justify-center text-white rounded-lg bg-[#e5b109] min-h-[155px] text-center "
