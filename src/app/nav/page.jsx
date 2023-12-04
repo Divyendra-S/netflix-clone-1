@@ -1,14 +1,18 @@
 "use client";
-import React from "react";
+import { useContext } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { AppContext } from "@/context";
 
 export default function Nav() {
+  const { LoggedIn} = useContext(AppContext);
   const router = useRouter();
+  const { data:session} = useSession();
   const navigation = [
     {
       title: "Home",
@@ -28,7 +32,7 @@ export default function Nav() {
     {
       title: "My list",
       id: 4,
-      path: `/tv`,
+      path: `/myList/${session?.user?.uid}/${LoggedIn?._id}`,
     },
     {
       title: "Settings",
