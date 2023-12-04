@@ -15,8 +15,27 @@ import CircleLoader from "@/components/Loader";
 
 export default function Browse(){
   const[loader, setLoader] = useState(false);
-  const { LoggedIn, pageLoader, setMedia, media } = useContext(AppContext);
+  const { LoggedIn, pageLoader, setMedia, media,favorites,setFavorites } = useContext(AppContext);
   const { data: session } = useSession();
+  const getAllFavorites = async (id,accountID) => {
+    try {
+      const data = await Axios.get(
+        `/api/favorites/getAllFavorite?id=${id}&accountId=${accountID}`
+      );
+      
+      if (data) {
+        setFavorites(
+          data.data.data.map((item) => ({
+            ...item,
+            addedToFavorites: true,
+          }))
+        );
+      }
+      return data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
   useEffect(() => {
     const getAllMedia = async () => {
       setLoader(true);
@@ -27,6 +46,10 @@ export default function Browse(){
       const getPopularTv = await GetPopularMedias("tv");
       const getTrendingTv = await GetTrendingMedias("tv");
       const getTopratedTv = await GetTopratedMedias("tv");
+      const allFavorites = await getAllFavorites(
+        session?.user?.uid,
+        LoggedIn?._id
+      );
       console.log("getPopularMovies", getTrendingMovies);
       setLoader(false);
 
@@ -41,6 +64,11 @@ export default function Browse(){
           Medias: item.Medias.map((medias) => ({
             ...medias,
             type: "movies",
+            addedToFavorites:
+             allFavorites?.length
+              ? allFavorites?.map((fav) => fav.movieID).indexOf(medias.id) >
+                -1
+              : false,
           })),
         })),
         ...[
@@ -52,6 +80,11 @@ export default function Browse(){
           Medias: item.Medias.map((medias) => ({
             ...medias,
             type: "tv",
+            addedToFavorites:
+             allFavorites?.length
+              ? allFavorites?.map((fav) => fav.movieID).indexOf(medias.id) >
+                -1
+              : false,
           })),
         })),
       ]);

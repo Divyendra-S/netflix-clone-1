@@ -18,6 +18,25 @@ export const MediaItem = ({ media, id }) => {
   const { LoggedIn, setFavorites } = useContext(AppContext);
   const router = useRouter();
   const { data: session } = useSession();
+  const getAllFavorites = async (id,accountID) => {
+    try {
+      const data = await Axios.get(
+        `/api/favorites/getAllFavorite?id=${id}&accountId=${accountID}`
+      );
+      
+      if (data) {
+        setFavorites(
+          data.data.data.map((item) => ({
+            ...item,
+            addedToFavorites: true,
+          }))
+        );
+      }
+      return data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const addToFavorites = async(item)=>{
     const { backdrop_path, poster_path, id, type } = item;
     try {
@@ -32,6 +51,16 @@ export const MediaItem = ({ media, id }) => {
     } catch (err) {
       console.log(err);
     }
+  }
+  async function updateFavorites() {
+    const res = await getAllFavorites(session?.user?.uid, loggedInAccount?._id);
+    if (res)
+      setFavorites(
+        res.map((item) => ({
+          ...item,
+          addedToFavorites: true,
+        }))
+      );
   }
   return (
     <motion.div
@@ -57,7 +86,8 @@ export const MediaItem = ({ media, id }) => {
       <button
         onClick={
           ()=>{
-            addToFavorites(media)
+            addToFavorites(media);
+            updateFavorites();
           }
         }
         className={`opacity-0 cursor-pointer border flex p-2 items-center gap-x-2 rounded-full  text-sm font-semibold transition group-hover:opacity-90 border-white   bg-black  text-black`}
