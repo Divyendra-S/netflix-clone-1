@@ -12,6 +12,7 @@ import {
 } from "@/Utils";
 import { CommonLayout } from "@/components/commonLayout";
 import CircleLoader from "@/components/Loader";
+import { Axios } from "@/helper/httpHelper";
 
 export default function Browse(){
   const[loader, setLoader] = useState(false);
