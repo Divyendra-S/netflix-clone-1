@@ -3,7 +3,7 @@ import { ManageAccounts } from "@/components/manageAccounts";
 import { useSession } from "next-auth/react";
 import UnAuthPage from "@/components/unauthPage";
 import { AppContext } from "@/context";
-import { useContext, useEffect,useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   getAllFavorites,
   GetPopularMedias,
@@ -14,16 +14,17 @@ import { CommonLayout } from "@/components/commonLayout";
 import CircleLoader from "@/components/Loader";
 import { Axios } from "@/helper/httpHelper";
 
-export default function Browse(){
-  const[loader, setLoader] = useState(false);
-  const { LoggedIn, pageLoader, setMedia, media,favorites,setFavorites } = useContext(AppContext);
+export default function Browse() {
+  const [loader, setLoader] = useState(false);
+  const { LoggedIn, pageLoader, setMedia, media, favorites, setFavorites } =
+    useContext(AppContext);
   const { data: session } = useSession();
-  const getAllFavorites = async (id,accountID) => {
+  const getAllFavorites = async (id, accountID) => {
     try {
       const data = await Axios.get(
         `/api/favorites/getAllFavorite?id=${id}&accountId=${accountID}`
       );
-      
+
       if (data) {
         setFavorites(
           data.data.data.map((item) => ({
@@ -51,10 +52,9 @@ export default function Browse(){
         session?.user?.uid,
         LoggedIn?._id
       );
-      console.log(allFavorites,"alllllll");
+      console.log(allFavorites, "alllllll");
       console.log("getPopularMovies", getTrendingMovies);
       setLoader(false);
-
 
       setMedia([
         ...[
@@ -66,9 +66,12 @@ export default function Browse(){
           Medias: item.Medias.map((medias) => ({
             ...medias,
             type: "movies",
-            addedToFavorites:
-             allFavorites?.length
-              ? allFavorites?.map((fav) => {fav.movieID===medias.id})
+            addedToFavorites: allFavorites?.data.data.length
+              ? allFavorites?.data.data.map((fav) => {
+                  if (fav.movieID === medias.id) {
+                    return true;
+                  }
+                })
               : false,
           })),
         })),
@@ -81,9 +84,10 @@ export default function Browse(){
           Medias: item.Medias.map((medias) => ({
             ...medias,
             type: "tv",
-            addedToFavorites:
-             allFavorites?.length
-              ? allFavorites?.map((fav) => {fav.movieID===medias.id})
+            addedToFavorites: allFavorites?.length
+              ? allFavorites?.map((fav) => {
+                  fav.movieID === medias.id;
+                })
               : false,
           })),
         })),
@@ -93,8 +97,11 @@ export default function Browse(){
   }, []);
   if (session === null) return <UnAuthPage />;
   if (loader) return <CircleLoader />;
-  if (LoggedIn === null) return <ManageAccounts />
-  
+  if (LoggedIn === null) return <ManageAccounts />;
 
-  return <div className=" bg-[#141414] text-yellow-50 "><CommonLayout mediaData={media}/></div>;
-};
+  return (
+    <div className=" bg-[#141414] text-yellow-50 ">
+      <CommonLayout mediaData={media} />
+    </div>
+  );
+}
