@@ -37,15 +37,15 @@ export default function MyList() {
   useEffect(() => {
     getAllFavorites();
   }, []);
-  console.log(Favorites)
+  console.log("Favorites")
   console.log("favorites",Favorites)
 
   return (
     <div className=" bg-[#141414] text-yellow-50 w-screen h-screen ">
       <Navbar />
       <div className="flex pt-[100px] relative flex-wrap  gap-3 items-center pl-7 ">
-        {Favorites.map((item) => (
-            <MediaItem key={item._id} media={item} />
+        {Favorites.map((item,id) => (
+            <MediaItem key={item._id} media={item} id={id}/>
         ))}
       </div>
     </div>
