@@ -19,7 +19,7 @@ export default function MyList() {
   const getAllFavorites = async () => {
     try {
       const data = await Axios.get(
-        `/api/favorites/getAllFavorite?id=${session?.user?.uid}&accountId=${LoggedIn?._id}`
+        `/api/favorites/getAllFavorite?id=${params.id[0]}&accountId=${params.id[1]}`
       );
       
       if (data) {

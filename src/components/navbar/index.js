@@ -74,7 +74,7 @@ export const Navbar = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
-          className={`transition-all duration-200 left-0 top-0 mt-4 absolute z-20 h-[60px] flex items-center justify-between w-full`}
+          className={`transition-all duration-200 left-0 top-0 mt-4 absolute z-[999] h-[60px] flex items-center justify-between w-full`}
         >
           <div className="flex w-full justify-center  px-5">
             <motion.ul
