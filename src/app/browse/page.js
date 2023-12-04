@@ -66,12 +66,11 @@ export default function Browse() {
           Medias: item.Medias.map((medias) => ({
             ...medias,
             type: "movies",
-            addedToFavorites: 
-               allFavorites?.data.data.map((fav) => {
-                  if (fav.movieID === medias.id) {
-                    return true;
-                  }
-                })? true: false,
+            addedToFavorites: allFavorites?.data.data.map((fav) => {
+              fav.movieID === medias.id;
+            })
+              ? true
+              : false,
           })),
         })),
         ...[
