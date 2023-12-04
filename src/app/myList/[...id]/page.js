@@ -12,6 +12,7 @@ import { Navbar } from "@/components/navbar";
 export default function MyList() {
   const { data: session } = useSession();
   const params = useParams();
+  console.log(params)
   console.log("sessionssss", session);
   console.log(session?.user?.uid)
   const { LoggedIn, Favorites, setFavorites } = useContext(AppContext);
