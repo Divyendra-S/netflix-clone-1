@@ -51,6 +51,7 @@ export default function Browse(){
         session?.user?.uid,
         LoggedIn?._id
       );
+      console.log(allFavorites,"alllllll");
       console.log("getPopularMovies", getTrendingMovies);
       setLoader(false);
 
