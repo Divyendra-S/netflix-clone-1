@@ -83,8 +83,7 @@ export default function Browse(){
             type: "tv",
             addedToFavorites:
              allFavorites?.length
-              ? allFavorites?.map((fav) => fav.movieID).indexOf(medias.id) >
-                -1
+              ? allFavorites?.map((fav) => {fav.movieID===medias.id})
               : false,
           })),
         })),
