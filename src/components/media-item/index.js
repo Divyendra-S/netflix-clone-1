@@ -18,21 +18,21 @@ export const MediaItem = ({ media, id }) => {
   const { LoggedIn, setFavorites } = useContext(AppContext);
   const router = useRouter();
   const { data: session } = useSession();
-  // const addToFavorites = async(item)=>{
-  //   const { backdrop_path, poster_path, id, type } = item;
-  //   try {
-  //     const res = await Axios.post(`/api/favorites/add-favorite`, {
-  //       backdrop_path,
-  //       poster_path,
-  //       movieID: id,
-  //       type,
-  //       uid: session?.user?.uid,
-  //       accountID: LoggedIn?._id,
-  //     })
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
+  const addToFavorites = async(item)=>{
+    const { backdrop_path, poster_path, id, type } = item;
+    try {
+      const res = await Axios.post(`/api/favorites/add-favorite`, {
+        backdrop_path,
+        poster_path,
+        movieID: id,
+        type,
+        uid: session?.user?.uid,
+        accountID: LoggedIn?._id,
+      })
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return (
     <motion.div
     initial={{ opacity: 0 }}
@@ -55,6 +55,11 @@ export const MediaItem = ({ media, id }) => {
         />
       </div>
       <button
+        onClick={
+          ()=>{
+            addToFavorites(media)
+          }
+        }
         className={`opacity-0 cursor-pointer border flex p-2 items-center gap-x-2 rounded-full  text-sm font-semibold transition group-hover:opacity-90 border-white   bg-black  text-black`}
       >
         {media?.addedToFavorites ? (

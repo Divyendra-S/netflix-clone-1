@@ -44,7 +44,7 @@ export const Navbar = () => {
     {
       title: "My list",
       id: 4,
-      path: `/tv`,
+      path: `/myList`,
     },
   ];
 
@@ -144,7 +144,7 @@ export const Navbar = () => {
           onClick={() => {
             router.push("/nav");
           }}
-          className=" absolute flex items-center mr-8 transition duration-300 hover:scale-150  mt-8 right-0 z-[999] cursor-pointer "
+          className=" relative  flex items-center mr-8 transition duration-300 hover:scale-150  mt-8 right-0 z-[999] cursor-pointer "
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

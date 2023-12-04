@@ -2,6 +2,8 @@ import connectDb from "@/database";
 import Favorites from "@/models/Favorite";
 import { NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic'
+
 export async function GET(request) {
   try {
     await connectDb();

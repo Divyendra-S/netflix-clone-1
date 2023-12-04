@@ -1,54 +1,53 @@
-// "use client";
-// import { AppContext } from "@/context";
-// import { useContext } from "react";
-// import { useEffect, useState } from "react";
-// import { Axios } from "@/helper/httpHelper";
-// import { useSession } from "next-auth/react";
-// import { getAllFavorites } from "@/Utils";
-// import { useParams } from "next/navigation";
-// import { MediaItem } from "@/components/media-item";
-// import { Navbar } from "@/components/navbar";
+"use client";
+import { AppContext } from "@/context";
+import { useContext } from "react";
+import { useEffect, useState } from "react";
+import { Axios } from "@/helper/httpHelper";
+import { useSession } from "next-auth/react";
+import { getAllFavorites } from "@/Utils";
+import { useParams } from "next/navigation";
+import { MediaItem } from "@/components/media-item";
+import { Navbar } from "@/components/navbar";
 
-// export default function MyList() {
-//   const { data: session } = useSession();
-//   const params = useParams();
-//   //console.log("sessionssss", session);
-//   //console.log(session?.user?.uid)
-//   const { LoggedIn, Favorites, setFavorites } = useContext(AppContext);
+export default function MyList() {
+  const { data: session } = useSession();
+  const params = useParams();
+  //console.log("sessionssss", session);
+  //console.log(session?.user?.uid)
+  const { LoggedIn, Favorites, setFavorites } = useContext(AppContext);
+  const getAllFavorites = async () => {
+    try {
+      const data = await Axios.get(
+        `/api/favorites/getAllFavorite?id=${session?.user?.uid}&accountId=${LoggedIn?._id}`
+      );
+      
+      if (data) {
+        setFavorites(
+          data.data.data.map((item) => ({
+            ...item,
+            addedToFavorites: true,
+          }))
+        );
+      }
+      return data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    getAllFavorites();
+  }, []);
+  //console.log("favorites",Favorites)
 
-//   useEffect(() => {
-//     const getAllFavorites = async () => {
-//       try {
-//         const data = await Axios.get(
-//           `/api/favorites/getAllFavorite?id=${session?.user?.uid}&accountId=${LoggedIn?._id}`
-//         );
-        
-//         if (data) {
-//           setFavorites(
-//             data.data.data.map((item) => ({
-//               ...item,
-//               addedToFavorites: true,
-//             }))
-//           );
-//         }
-//         return data;
-//       } catch (err) {
-//         console.log(err);
-//       }
-//     };
-//     getAllFavorites();
-//   }, [session, LoggedIn]);
-//   //console.log("favorites",Favorites)
-
-//   return (
-//     <div className=" bg-[#141414] text-yellow-50 w-screen h-screen ">
-//       <Navbar />
-//       <div className="flex pt-[100px] relative flex-wrap  gap-3 items-center pl-7 ">
-//         {Favorites.map((item) => (
-//             <MediaItem key={item._id} media={item} />
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
+  return (
+    <div className=" bg-[#141414] text-yellow-50 w-screen h-screen ">
+      <Navbar />
+      <div className="flex pt-[100px] relative flex-wrap  gap-3 items-center pl-7 ">
+        {Favorites.map((item) => (
+            <MediaItem key={item._id} media={item} />
+        ))}
+      </div>
+    </div>
+  );
+}
 
