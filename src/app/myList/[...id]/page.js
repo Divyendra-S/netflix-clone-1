@@ -12,8 +12,8 @@ import { Navbar } from "@/components/navbar";
 export default function MyList() {
   const { data: session } = useSession();
   const params = useParams();
-  //console.log("sessionssss", session);
-  //console.log(session?.user?.uid)
+  console.log("sessionssss", session);
+  console.log(session?.user?.uid)
   const { LoggedIn, Favorites, setFavorites } = useContext(AppContext);
   const getAllFavorites = async () => {
     try {
@@ -37,7 +37,8 @@ export default function MyList() {
   useEffect(() => {
     getAllFavorites();
   }, []);
-  //console.log("favorites",Favorites)
+  console.log(Favorites)
+  console.log("favorites",Favorites)
 
   return (
     <div className=" bg-[#141414] text-yellow-50 w-screen h-screen ">
