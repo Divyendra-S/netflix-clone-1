@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import PinContainer from "./pinContainer";
 import { motion } from "framer-motion";
+import CircleLoader from "../Loader";
 
 const initialForm = {
   name: "",
