@@ -8,6 +8,7 @@ import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { AppContext } from "@/context";
+import { ManageAccounts } from "@/components/manageAccounts";
 
 export default function Nav() {
   const { LoggedIn, setLoggedIn } = useContext(AppContext);
@@ -40,6 +41,8 @@ export default function Nav() {
       path: `/tv`,
     },
   ];
+
+  if (LoggedIn === null) return <ManageAccounts />;
   return (
     <div className=" bg-black min-h-screen min-w-full relative  z-[999]">
       <motion.div
