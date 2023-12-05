@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { Axios } from "@/helper/httpHelper";
 import { useSession } from "next-auth/react";
 import { AppContext } from "@/context";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   PlusIcon,
@@ -13,15 +13,18 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { IoTrashBinOutline } from "react-icons/io5";
+import CircleLoader from "../Loader";
 //import mission from '../../../public/mission.jpg' /Users/divyendra/Documents/netflix-clone1/my-net/public/mission.jpg
 const baseUrl = "https://image.tmdb.org/t/p/w500";
 
 export const MediaItem = ({ media, id }) => {
+  const [Loader,setLoader] = useState(false);
   const { LoggedIn, setFavorites } = useContext(AppContext);
   const router = useRouter();
   const { data: session } = useSession();
   const getAllFavorites = async (id, accountID) => {
     try {
+      setLoader(true);
       const data = await Axios.get(
         `/api/favorites/getAllFavorite?id=${id}&accountId=${accountID}`
       );
@@ -35,6 +38,7 @@ export const MediaItem = ({ media, id }) => {
           }))
         );
       }
+      setLoader(false);
       return data;
     } catch (err) {
       console.log(err);
@@ -80,6 +84,9 @@ export const MediaItem = ({ media, id }) => {
     updateFavorites();
   },[session,LoggedIn])
 
+  if (session === null) return <UnAuthPage />;
+  if (Loader) return <CircleLoader />;
+  if (LoggedIn === null) return <ManageAccounts />;
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -105,6 +112,7 @@ export const MediaItem = ({ media, id }) => {
         onClick={() => {
           addToFavorites(media);
           updateFavorites();
+          getAllFavorites(session?.user?.uid, LoggedIn?._id);
         }}
         className={`opacity-0 cursor-pointer border flex p-2 items-center gap-x-2 rounded-full  text-sm font-semibold transition group-hover:opacity-90 border-white   bg-black  text-black`}
       >
@@ -114,7 +122,7 @@ export const MediaItem = ({ media, id }) => {
           <PlusIcon color="#ffffff" className="h-7 w-7" />
         )}
       </button>
-      <button
+      {media?.delete &&<button
         onClick={() => {
           handleRemoveFavorites(media);
           updateFavorites();
@@ -122,7 +130,7 @@ export const MediaItem = ({ media, id }) => {
         className={`opacity-0 cursor-pointer border flex p-2 items-center gap-x-2 rounded-full  text-sm font-semibold transition group-hover:opacity-90 border-white   bg-black  text-black`}
       >
         {media?.delete && <IoTrashBinOutline color="#ffffff" className="h-7 w-7" />}
-      </button>
+      </button>}
     </motion.div>
   );
 };

@@ -218,7 +218,7 @@ export const ManageAccounts = () => {
                     ) : null}
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px] bg-slate-900 text-white">
+                <DialogContent className="sm:max-w-[425px] bg-neutral-900 text-white">
                   <DialogHeader>
                     <DialogTitle>Add Account</DialogTitle>
                     <DialogDescription>
