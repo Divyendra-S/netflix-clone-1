@@ -18,13 +18,13 @@ import CircleLoader from "../Loader";
 const baseUrl = "https://image.tmdb.org/t/p/w500";
 
 export const MediaItem = ({ media, id }) => {
-  const [Loader,setLoader] = useState(false);
+  //const [Loader,setLoader] = useState(false);
   const { LoggedIn, setFavorites } = useContext(AppContext);
   const router = useRouter();
   const { data: session } = useSession();
   const getAllFavorites = async (id, accountID) => {
     try {
-      setLoader(true);
+      //setLoader(true);
       const data = await Axios.get(
         `/api/favorites/getAllFavorite?id=${id}&accountId=${accountID}`
       );
@@ -38,7 +38,7 @@ export const MediaItem = ({ media, id }) => {
           }))
         );
       }
-      setLoader(false);
+      //setLoader(false);
       return data;
     } catch (err) {
       console.log(err);
@@ -56,7 +56,7 @@ export const MediaItem = ({ media, id }) => {
         accountID: LoggedIn?._id,
       });
 
-      // getAllFavorites(session?.user?.uid, LoggedIn?._id);
+       getAllFavorites(session?.user?.uid, LoggedIn?._id);
     } catch (err) {
       console.log(err);
     }
@@ -65,7 +65,7 @@ export const MediaItem = ({ media, id }) => {
     const res = await getAllFavorites(session?.user?.uid, LoggedIn?._id);
     if (res)
       setFavorites(
-        res.map((item) => ({
+        res?.data.data.map((item) => ({
           ...item,
           addedToFavorites: true,
         }))
@@ -80,7 +80,7 @@ export const MediaItem = ({ media, id }) => {
     
   }
   useEffect(()=>{
-    updateFavorites(); 
+    //updateFavorites(); 
    
   },[])
 
