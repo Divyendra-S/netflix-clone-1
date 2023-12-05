@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import {
   PlusIcon,
   ChevronDownIcon,
-  CheckIcon,
+  CheckIcon,TrashIcon,
 } from "@heroicons/react/24/outline";
 //import mission from '../../../public/mission.jpg' /Users/divyendra/Documents/netflix-clone1/my-net/public/mission.jpg
 const baseUrl = "https://image.tmdb.org/t/p/w500";
@@ -29,6 +29,7 @@ export const MediaItem = ({ media, id }) => {
           data.data.data.map((item) => ({
             ...item,
             addedToFavorites: true,
+            delete: true,
           }))
         );
       }
@@ -98,6 +99,20 @@ export const MediaItem = ({ media, id }) => {
           <PlusIcon color="#ffffff" className="h-7 w-7" />
         )}
       </button>
+      <button
+        onClick={
+          ()=>{
+            addToFavorites(media);
+            updateFavorites();
+          }
+        }
+        className={`opacity-0 cursor-pointer border flex p-2 items-center gap-x-2 rounded-full  text-sm font-semibold transition group-hover:opacity-90 border-white   bg-black  text-black`}
+      >
+        {media?.delete &&
+          <TrashIcon color="#ffffff" className="h-7 w-7" />
+        }
+      </button>
+      
     </motion.div>
   );
 };
