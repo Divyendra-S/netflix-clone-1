@@ -74,7 +74,7 @@ export const MediaItem = ({ media, id }) => {
     
   }
   useEffect(()=>{
-    updateFavorites(); 
+    updateFavorites() 
   },[]);
 
   if (session === null) return <UnAuthPage />;
