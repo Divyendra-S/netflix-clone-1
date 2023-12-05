@@ -85,7 +85,7 @@ export const MediaItem = ({ media, id }) => {
   },[])
 
   if (session === null) return <UnAuthPage />;
-  if (Loader) return <CircleLoader />;
+  //if (Loader) return <CircleLoader />;
   if (LoggedIn === null) return <ManageAccounts />;
   return (
     <motion.div
