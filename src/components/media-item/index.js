@@ -62,15 +62,8 @@ export const MediaItem = ({ media, id }) => {
     }
   };
   async function updateFavorites() {
-    const res = await getAllFavorites(session?.user?.uid, LoggedIn?._id);
-    if (res)
-      setFavorites(
-        res?.data.data.map((item) => ({
-          ...item,
-          addedToFavorites: true,
-          delete: true,
-        }))
-      );
+     getAllFavorites(session?.user?.uid, LoggedIn?._id);
+    
   }
   async function handleRemoveFavorites(item) {
     const data = await Axios.delete(
@@ -81,10 +74,10 @@ export const MediaItem = ({ media, id }) => {
     
   }
   useEffect(()=>{
-    //updateFavorites(); 
-    getAllFavorites(session?.user?.uid, LoggedIn?._id);
+    updateFavorites(); 
+    
    
-  },[session,LoggedIn]);
+  },[]);
 
   if (session === null) return <UnAuthPage />;
   //if (Loader) return <CircleLoader />;
