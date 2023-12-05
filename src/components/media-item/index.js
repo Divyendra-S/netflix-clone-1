@@ -63,6 +63,15 @@ export const MediaItem = ({ media, id }) => {
         }))
       );
   }
+  async function handleRemoveFavorites(item) {
+    const data = await Axios.delete(`/api/favorites/remove-favorite?id=${item._id}`);
+
+    
+
+    if (data.success) updateFavorites();
+  }
+
+
   return (
     <motion.div
     initial={{ opacity: 0 }}
@@ -102,7 +111,7 @@ export const MediaItem = ({ media, id }) => {
       <button
         onClick={
           ()=>{
-            addToFavorites(media);
+            handleRemoveFavorites(media);
             updateFavorites();
           }
         }
