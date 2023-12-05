@@ -77,11 +77,11 @@ export const MediaItem = ({ media, id }) => {
     );
 
     getAllFavorites(session?.user?.uid, LoggedIn?._id);
-    updateFavorites();
+    
   }
   useEffect(()=>{
     getAllFavorites(session?.user?.uid, LoggedIn?._id);
-    updateFavorites();
+   
   },[session,LoggedIn])
 
   if (session === null) return <UnAuthPage />;
@@ -112,7 +112,7 @@ export const MediaItem = ({ media, id }) => {
         onClick={() => {
           addToFavorites(media);
           updateFavorites();
-          getAllFavorites(session?.user?.uid, LoggedIn?._id);
+          
         }}
         className={`opacity-0 cursor-pointer border flex p-2 items-center gap-x-2 rounded-full  text-sm font-semibold transition group-hover:opacity-90 border-white   bg-black  text-black`}
       >
