@@ -27,6 +27,7 @@ export default function MyList() {
           data.data.data.map((item) => ({
             ...item,
             addedToFavorites: true,
+            delete: true,
           }))
         );
       }

@@ -73,10 +73,10 @@ export const MediaItem = ({ media, id }) => {
     getAllFavorites(session?.user?.uid, LoggedIn?._id);
     
   }
-  
-  useEffect(()=>{
-    updateFavorites() 
-  },[]);
+
+  // useEffect(()=>{
+  //   updateFavorites() 
+  // },[]);
 
   if (session === null) return <UnAuthPage />;
   //if (Loader) return <CircleLoader />;
