@@ -56,7 +56,7 @@ export const MediaItem = ({ media, id }) => {
         accountID: LoggedIn?._id,
       });
 
-      getAllFavorites(session?.user?.uid, LoggedIn?._id);
+      // getAllFavorites(session?.user?.uid, LoggedIn?._id);
     } catch (err) {
       console.log(err);
     }
