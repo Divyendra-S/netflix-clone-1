@@ -41,7 +41,7 @@ export default function Nav() {
       path: `/tv`,
     },
   ];
-
+  if (session === null) return <UnAuthPage />;
   if (LoggedIn === null) return <ManageAccounts />;
   return (
     <div className=" bg-black min-h-screen min-w-full relative  z-[999]">
