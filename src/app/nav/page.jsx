@@ -10,9 +10,9 @@ import { useSession } from "next-auth/react";
 import { AppContext } from "@/context";
 
 export default function Nav() {
-  const { LoggedIn} = useContext(AppContext);
+  const { LoggedIn, setLoggedIn } = useContext(AppContext);
   const router = useRouter();
-  const { data:session} = useSession();
+  const { data: session } = useSession();
   const navigation = [
     {
       title: "Home",
@@ -86,11 +86,27 @@ export default function Nav() {
           <div
             onClick={() => {
               signOut("github");
-              
             }}
             className="transition duration-150 hover:scale-110 hover:text-red-600 cursor-pointer"
           >
-            <Link href={"/"} className="">Sign Out</Link>
+            <Link href={"/"} className="">
+              Sign Out
+            </Link>
+          </div>
+        </motion.div>
+        <motion.div
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 2.5 }}
+        >
+          <div
+            onClick={() => {
+              setLoggedIn(null);
+              sessionStorage.removeItem("LoggedIn");
+            }}
+            className="transition duration-150 hover:scale-110 hover:text-red-600 cursor-pointer"
+          >
+            <div className="">Accounts</div>
           </div>
         </motion.div>
       </motion.div>
