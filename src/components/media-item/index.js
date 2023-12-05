@@ -12,6 +12,7 @@ import {
   CheckIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
+import { IoTrashBinOutline } from "react-icons/io5";
 //import mission from '../../../public/mission.jpg' /Users/divyendra/Documents/netflix-clone1/my-net/public/mission.jpg
 const baseUrl = "https://image.tmdb.org/t/p/w500";
 
@@ -55,7 +56,7 @@ export const MediaItem = ({ media, id }) => {
     }
   };
   async function updateFavorites() {
-    const res = await getAllFavorites(session?.user?.uid, loggedInAccount?._id);
+    const res = await getAllFavorites(session?.user?.uid, LoggedIn?._id);
     if (res)
       setFavorites(
         res.map((item) => ({
@@ -69,7 +70,7 @@ export const MediaItem = ({ media, id }) => {
       `/api/favorites/remove-favorite?id=${item._id}`
     );
 
-    getAllFavorites(session?.user?.uid, loggedInAccount?._id);
+    getAllFavorites(session?.user?.uid, LoggedIn?._id);
     updateFavorites();
   }
 
@@ -114,7 +115,7 @@ export const MediaItem = ({ media, id }) => {
         }}
         className={`opacity-0 cursor-pointer border flex p-2 items-center gap-x-2 rounded-full  text-sm font-semibold transition group-hover:opacity-90 border-white   bg-black  text-black`}
       >
-        {media?.delete && <TrashIcon color="#ffffff" className="h-10 w-10" />}
+        {media?.delete && <IoTrashBinOutline color="#ffffff" className="h-7 w-7" />}
       </button>
     </motion.div>
   );
