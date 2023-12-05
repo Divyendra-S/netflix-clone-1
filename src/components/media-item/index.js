@@ -73,6 +73,7 @@ export const MediaItem = ({ media, id }) => {
     getAllFavorites(session?.user?.uid, LoggedIn?._id);
     
   }
+  
   useEffect(()=>{
     updateFavorites() 
   },[]);
