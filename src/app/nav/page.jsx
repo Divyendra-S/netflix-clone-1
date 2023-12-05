@@ -9,6 +9,7 @@ import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { AppContext } from "@/context";
 import { ManageAccounts } from "@/components/manageAccounts";
+import UnAuthPage from "@/components/unauthPage";
 
 export default function Nav() {
   const { LoggedIn, setLoggedIn } = useContext(AppContext);
