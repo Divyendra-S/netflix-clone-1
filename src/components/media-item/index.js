@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { Axios } from "@/helper/httpHelper";
 import { useSession } from "next-auth/react";
 import { AppContext } from "@/context";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   PlusIcon,
@@ -75,6 +75,10 @@ export const MediaItem = ({ media, id }) => {
     getAllFavorites(session?.user?.uid, LoggedIn?._id);
     updateFavorites();
   }
+  useEffect(()=>{
+    getAllFavorites(session?.user?.uid, LoggedIn?._id);
+    updateFavorites();
+  },[session,LoggedIn])
 
   return (
     <motion.div
