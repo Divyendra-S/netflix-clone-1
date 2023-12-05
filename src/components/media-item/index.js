@@ -68,6 +68,7 @@ export const MediaItem = ({ media, id }) => {
         res?.data.data.map((item) => ({
           ...item,
           addedToFavorites: true,
+          delete: true,
         }))
       );
   }
@@ -81,8 +82,9 @@ export const MediaItem = ({ media, id }) => {
   }
   useEffect(()=>{
     //updateFavorites(); 
+    getAllFavorites(session?.user?.uid, LoggedIn?._id);
    
-  },[])
+  },[session,LoggedIn]);
 
   if (session === null) return <UnAuthPage />;
   //if (Loader) return <CircleLoader />;
