@@ -139,7 +139,7 @@ export const ManageAccounts = () => {
   return (
     <>
       <button
-        onClick={() => signOut("github")}
+        onClick={() => signOut("google")}
         className="bg-gray-900 w-screen flex justify-end text-right pr-6 pt-4"
       >
         <div className=" bg-red-500 w-20 rounded text-center ">Sign Out</div>
