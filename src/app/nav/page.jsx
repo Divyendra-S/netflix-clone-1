@@ -36,11 +36,6 @@ export default function Nav() {
       id: 4,
       path: `/myList/${session?.user?.uid}/${LoggedIn?._id}`,
     },
-    {
-      title: "Settings",
-      id: 5,
-      path: `/tv`,
-    },
   ];
   if (session === null) return <UnAuthPage />;
   if (LoggedIn === null) return <ManageAccounts />;
