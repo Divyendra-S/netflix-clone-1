@@ -20,6 +20,7 @@ export default function Browse() {
     useContext(AppContext);
   const { data: session } = useSession();
   console.log("ssssssssssssssssssssssssss",session)
+  const uid = session?.user?.uid;
   const getAllFavorites = async () => {
     console.log(session?.user?.uid)
     try {
@@ -89,7 +90,7 @@ export default function Browse() {
       ]);
     };
     getAllMedia();
-  }, []);
+  }, [session,LoggedIn]);
   if (session === null) return <UnAuthPage />;
   if (loader) return <CircleLoader />;
   if (LoggedIn === null) return <ManageAccounts />;
