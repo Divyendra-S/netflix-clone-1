@@ -114,7 +114,7 @@ export const MediaItem = ({ media, id }) => {
           
           
         // }}
-        className={`opacity-0 cursor-pointer border flex px-1 py-2 items-center w-auto  rounded-full  text-sm font-semibold transition group-hover:opacity-90 border-white   bg-black  text-black`}
+        className={`opacity-0 cursor-pointer border flex pl-0 pr-1 py-2 items-center w-auto  rounded-full  text-sm font-semibold transition group-hover:opacity-90 border-white   bg-black  text-black`}
       >
         
         {Loader ? (
