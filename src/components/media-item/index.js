@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { Axios } from "@/helper/httpHelper";
 import { useSession } from "next-auth/react";
 import { AppContext } from "@/context";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState,useCallback } from "react";
 import { motion } from "framer-motion";
 import {
   PlusIcon,
@@ -64,20 +64,24 @@ export const MediaItem = ({ media, id }) => {
       console.log(err);
     }
   };
-  async function updateFavorites() {
-   await getAllFavorites(session?.user?.uid, LoggedIn?._id);
-  }
+  // async function updateFavorites() {
+  //  await getAllFavorites(session?.user?.uid, LoggedIn?._id);
+  // }
   async function handleRemoveFavorites(item) {
     const data = await Axios.delete(
       `/api/favorites/remove-favorite?id=${item._id}`
     );
 
-   await getAllFavorites(session?.user?.uid, LoggedIn?._id);
+    getAllFavorites(session?.user?.uid, LoggedIn?._id);
   }
 
-  useEffect(()=>{
-    updateFavorites()
-  },[]);
+  const fetchData = useCallback(() => {
+    getAllFavorites(session?.user?.uid, LoggedIn?._id);
+  }, [session?.user?.uid, LoggedIn?._id])
+  
+  useEffect(() => {
+    fetchData();
+  }, [fetchData])
 
   if (session === null) return <UnAuthPage />;
   //if (Loader) return <CircleLoader />;
@@ -110,9 +114,9 @@ export const MediaItem = ({ media, id }) => {
         }}
         className={`opacity-0 cursor-pointer border flex p-2 items-center gap-x-2 rounded-full  text-sm font-semibold transition group-hover:opacity-90 border-white   bg-black  text-black`}
       >
-        {" "}
+        
         {Loader ? (
-          <Loader />
+          <CircleLoader />
         ) : (
           `${
             media?.addedToFavorites ? (
