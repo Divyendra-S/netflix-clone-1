@@ -129,11 +129,12 @@ export const ManageAccounts = () => {
         console.log();
         setPinError(false);
       } else {
-
-        setPinError(true);
         setLoader(false);
+        setPinError(true);
       }
     } catch (err) {
+      setLoader(false);
+      setPinError(true);
       console.log(err);
     }
   };
