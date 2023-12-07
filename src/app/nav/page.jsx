@@ -60,7 +60,7 @@ export default function Nav() {
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7 }}
-        className="flex flex-col w-full  text-white items-center  mt-36 mb-10 gap-y-16 text-5xl"
+        className="flex flex-col w-full  text-white items-center  mt-36  gap-y-16 text-5xl"
       >
         {navigation.map((item, id) => (
           <motion.div
@@ -105,7 +105,7 @@ export default function Nav() {
             }}
             className="transition duration-150 hover:scale-110 hover:text-red-600 cursor-pointer"
           >
-            <div className="">Accounts</div>
+            <div className=" mb-24">Accounts</div>
           </div>
         </motion.div>
       </motion.div>
