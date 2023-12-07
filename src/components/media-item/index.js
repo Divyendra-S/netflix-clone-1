@@ -15,6 +15,7 @@ import {
 import { IoTrashBinOutline } from "react-icons/io5";
 import CircleLoader from "../Loader";
 import { Loader } from "lucide-react";
+import ThreeDotsLoader from "../ThreeDotloader";
 //import mission from '../../../public/mission.jpg' /Users/divyendra/Documents/netflix-clone1/my-net/public/mission.jpg
 const baseUrl = "https://image.tmdb.org/t/p/w500";
 
@@ -115,7 +116,7 @@ export const MediaItem = ({ media, id }) => {
       >
         
         {Loader ? (
-          <CircleLoader />
+          <ThreeDotsLoader/>
         ) : (
           <>
           `${
