@@ -64,6 +64,7 @@ export const MediaItem = ({ media, id }) => {
       });
       await getAllFavorites(session?.user?.uid, LoggedIn?._id);
       toast.success("added to Your List ");
+      console.log('Add to favorites successful');
       setLoader(false);
     } catch (err) {
       console.log(err);
