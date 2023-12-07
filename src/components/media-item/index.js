@@ -14,11 +14,12 @@ import {
 } from "@heroicons/react/24/outline";
 import { IoTrashBinOutline } from "react-icons/io5";
 import CircleLoader from "../Loader";
+import { Loader } from "lucide-react";
 //import mission from '../../../public/mission.jpg' /Users/divyendra/Documents/netflix-clone1/my-net/public/mission.jpg
 const baseUrl = "https://image.tmdb.org/t/p/w500";
 
 export const MediaItem = ({ media, id }) => {
-  //const [Loader,setLoader] = useState(false);
+  const [Loader,setLoader] = useState(false);
   const { LoggedIn, setFavorites } = useContext(AppContext);
   const router = useRouter();
   const { data: session } = useSession();
@@ -45,6 +46,7 @@ export const MediaItem = ({ media, id }) => {
     }
   };
   const addToFavorites = async (item) => {
+    setLoader(true);
     const { backdrop_path, poster_path, id, type } = item;
     try {
       const res = await Axios.post(`/api/favorites/add-favorite`, {
@@ -56,27 +58,26 @@ export const MediaItem = ({ media, id }) => {
         accountID: LoggedIn?._id,
       });
 
-       getAllFavorites(session?.user?.uid, LoggedIn?._id);
+      getAllFavorites(session?.user?.uid, LoggedIn?._id);
+      setLoader(false);
     } catch (err) {
       console.log(err);
     }
   };
   async function updateFavorites() {
-     getAllFavorites(session?.user?.uid, LoggedIn?._id);
-    
+   await getAllFavorites(session?.user?.uid, LoggedIn?._id);
   }
   async function handleRemoveFavorites(item) {
     const data = await Axios.delete(
       `/api/favorites/remove-favorite?id=${item._id}`
     );
 
-    getAllFavorites(session?.user?.uid, LoggedIn?._id);
-    
+   await getAllFavorites(session?.user?.uid, LoggedIn?._id);
   }
 
-  // useEffect(()=>{
-  //   updateFavorites() 
-  // },[]);
+  useEffect(()=>{
+    updateFavorites()
+  },[]);
 
   if (session === null) return <UnAuthPage />;
   //if (Loader) return <CircleLoader />;
@@ -106,25 +107,40 @@ export const MediaItem = ({ media, id }) => {
         onClick={() => {
           addToFavorites(media);
           updateFavorites();
-          
         }}
         className={`opacity-0 cursor-pointer border flex p-2 items-center gap-x-2 rounded-full  text-sm font-semibold transition group-hover:opacity-90 border-white   bg-black  text-black`}
       >
-        {media?.addedToFavorites ? (
+        {" "}
+        {Loader ? (
+          <Loader />
+        ) : (
+          `${
+            media?.addedToFavorites ? (
+              <CheckIcon color="#ffffff" className="h-7 w-7" />
+            ) : (
+              <PlusIcon color="#ffffff" className="h-7 w-7" />
+            )
+          }`
+        )}
+        {/* {media?.addedToFavorites ? (
           <CheckIcon color="#ffffff" className="h-7 w-7" />
         ) : (
           <PlusIcon color="#ffffff" className="h-7 w-7" />
-        )}
+        )} */}
       </button>
-      {media?.delete &&<button
-        onClick={() => {
-          handleRemoveFavorites(media);
-          updateFavorites();
-        }}
-        className={`opacity-0 cursor-pointer border flex p-2 items-center gap-x-2 rounded-full  text-sm font-semibold transition group-hover:opacity-90 border-white   bg-black  text-black`}
-      >
-        {media?.delete && <IoTrashBinOutline color="#ffffff" className="h-7 w-7" />}
-      </button>}
+      {media?.delete && (
+        <button
+          onClick={() => {
+            handleRemoveFavorites(media);
+            updateFavorites();
+          }}
+          className={`opacity-0 cursor-pointer border flex p-2 items-center gap-x-2 rounded-full  text-sm font-semibold transition group-hover:opacity-90 border-white   bg-black  text-black`}
+        >
+          {media?.delete && (
+            <IoTrashBinOutline color="#ffffff" className="h-7 w-7" />
+          )}
+        </button>
+      )}
     </motion.div>
   );
 };
