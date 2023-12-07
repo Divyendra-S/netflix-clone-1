@@ -116,6 +116,7 @@ export const MediaItem = ({ media, id }) => {
         {Loader ? (
           <CircleLoader />
         ) : (
+          <>
           `${
             media?.addedToFavorites ? (
               <CheckIcon color="#ffffff" className="h-7 w-7" />
@@ -123,6 +124,7 @@ export const MediaItem = ({ media, id }) => {
               <PlusIcon color="#ffffff" className="h-7 w-7" />
             )
           }`
+          </>
         )}
         {/* {media?.addedToFavorites ? (
           <CheckIcon color="#ffffff" className="h-7 w-7" />
