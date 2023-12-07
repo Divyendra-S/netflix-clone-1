@@ -1,3 +1,4 @@
+'use client'
 import "./globals.css";
 import {
   Inter,
@@ -11,6 +12,7 @@ import { NextAuthProvider } from "./provider";
 import { AppContextProvider } from "@/context";
 import { Navbar } from "@/components/navbar";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 const CarroisGothic = Carrois_Gothic({

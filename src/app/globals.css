@@ -133,11 +133,3 @@
 
 /* styles.css */
 
-.Toastify .Toastify_toast-body {
-  color: white;
-  font-size: 14px;   
-}
-
-.Toastify .Toastify__toast--success {
-  background: black;   
-}
