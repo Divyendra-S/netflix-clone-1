@@ -58,7 +58,7 @@ export const MediaItem = ({ media, id }) => {
         accountID: LoggedIn?._id,
       });
 
-      getAllFavorites(session?.user?.uid, LoggedIn?._id);
+      await getAllFavorites(session?.user?.uid, LoggedIn?._id);
       setLoader(false);
     } catch (err) {
       console.log(err);
@@ -108,7 +108,7 @@ export const MediaItem = ({ media, id }) => {
       <button
         onClick={() => {
           addToFavorites(media);
-          getAllFavorites(session?.user?.uid, LoggedIn?._id);
+          
           
         }}
         className={`opacity-0 cursor-pointer border flex p-2 items-center gap-x-2 rounded-full  text-sm font-semibold transition group-hover:opacity-90 border-white   bg-black  text-black`}
