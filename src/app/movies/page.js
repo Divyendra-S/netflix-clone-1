@@ -66,7 +66,7 @@ export default function Movies() {
       ]);
     };
     getAllMedia();
-  }, []);
+  }, [session, LoggedIn]);
   if (session === null) return <UnAuthPage />;
   if (LoggedIn === null) return <ManageAccounts />;
   if (loader) return <CircleLoader />;
