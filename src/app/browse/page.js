@@ -21,6 +21,7 @@ export default function Browse() {
   const { data: session } = useSession();
   console.log("ssssssssssssssssssssssssss",session)
   const getAllFavorites = async () => {
+    console.log(session?.user?.uid)
     try {
       const data = await Axios.get(
         `/api/favorites/getAllFavorite?id=${session?.user?.uid}&accountId=${LoggedIn?._id}`
