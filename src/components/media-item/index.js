@@ -59,7 +59,9 @@ export const MediaItem = ({ media, id }) => {
         uid: session?.user?.uid,
         accountID: LoggedIn?._id,
       });
-
+      toast.success("signed up successfully", {
+        position: "top-center",
+      });
       await getAllFavorites(session?.user?.uid, LoggedIn?._id);
       toast.success("added to Your List ");
       setLoader(false);
