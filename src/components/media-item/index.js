@@ -62,11 +62,10 @@ export const MediaItem = ({ media, id }) => {
       
       await getAllFavorites(session?.user?.uid, LoggedIn?._id);
       toast.success("added to Your List ");
-      console.log('Add to favorites successful');
       setLoader(false);
     } catch (err) {
       console.log(err);
-      toast.error("this series/movie already exists");
+      toast.error("error adding favorites");
     }
   };
   
@@ -111,12 +110,12 @@ export const MediaItem = ({ media, id }) => {
         />
       </div>
       <button
-        onClick={() => {
-          addToFavorites(media);
+        // onClick={() => {
+        //   addToFavorites(media);
           
           
-        }}
-        className={`opacity-0 cursor-pointer border flex p-2 items-center gap-x-2 rounded-full  text-sm font-semibold transition group-hover:opacity-90 border-white   bg-black  text-black`}
+        // }}
+        className={`opacity-0 cursor-pointer border flex p-2 items-center  rounded-full  text-sm font-semibold transition group-hover:opacity-90 border-white   bg-black  text-black`}
       >
         
         {Loader ? (
@@ -125,9 +124,11 @@ export const MediaItem = ({ media, id }) => {
           <>
           `${
             media?.addedToFavorites ? (
-              <CheckIcon color="#ffffff" className="h-7 w-7" />
+              <CheckIcon color="#ffffff" className="h-7 w-7" onClick={()=>{toast.error("this series or movie already exists")}} />
             ) : (
-              <PlusIcon color="#ffffff" className="h-7 w-7" />
+              <PlusIcon color="#ffffff" className="h-7 w-7" onClick={() => {
+                addToFavorites(media);
+              }} />
             )
           }`
           </>
