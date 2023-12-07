@@ -24,7 +24,7 @@ import { ManageAccounts } from "@/components/manageAccounts";
 export default function Tv(){
   const[loader, setLoader] = useState(false);
 
-  const { LoggedIn, pageLoader, setMedia, media } = useContext(AppContext);
+  const { LoggedIn, pageLoader, setMedia, media,setFavorites } = useContext(AppContext);
   const { data: session } = useSession();
   const getAllFavorites = async () => {
     try {

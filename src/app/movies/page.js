@@ -20,7 +20,7 @@ import { Axios } from "@/helper/httpHelper";
 export default function Movies() {
   const[loader, setLoader] = useState(false);
 
-  const { LoggedIn, setMedia, media } = useContext(AppContext);
+  const { LoggedIn, setMedia, media ,favorites, setFavorites} = useContext(AppContext);
   const { data: session } = useSession();
   const getAllFavorites = async () => {
     try {
