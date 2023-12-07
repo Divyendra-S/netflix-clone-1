@@ -64,9 +64,7 @@ export const MediaItem = ({ media, id }) => {
       console.log(err);
     }
   };
-  // async function updateFavorites() {
-  //  await getAllFavorites(session?.user?.uid, LoggedIn?._id);
-  // }
+  
   async function handleRemoveFavorites(item) {
     const data = await Axios.delete(
       `/api/favorites/remove-favorite?id=${item._id}`
@@ -75,13 +73,13 @@ export const MediaItem = ({ media, id }) => {
     getAllFavorites(session?.user?.uid, LoggedIn?._id);
   }
 
-  const fetchData = useCallback(() => {
-    getAllFavorites(session?.user?.uid, LoggedIn?._id);
-  }, [session?.user?.uid, LoggedIn?._id])
+  // const fetchData = useCallback(() => {
+  //   getAllFavorites(session?.user?.uid, LoggedIn?._id);
+  // }, [session?.user?.uid, LoggedIn?._id])
   
-  useEffect(() => {
-    fetchData();
-  }, [fetchData])
+  // useEffect(() => {
+  //   fetchData();
+  // }, [fetchData])
 
   if (session === null) return <UnAuthPage />;
   //if (Loader) return <CircleLoader />;
@@ -110,7 +108,7 @@ export const MediaItem = ({ media, id }) => {
       <button
         onClick={() => {
           addToFavorites(media);
-          updateFavorites();
+          
         }}
         className={`opacity-0 cursor-pointer border flex p-2 items-center gap-x-2 rounded-full  text-sm font-semibold transition group-hover:opacity-90 border-white   bg-black  text-black`}
       >
@@ -136,7 +134,7 @@ export const MediaItem = ({ media, id }) => {
         <button
           onClick={() => {
             handleRemoveFavorites(media);
-            updateFavorites();
+            
           }}
           className={`opacity-0 cursor-pointer border flex p-2 items-center gap-x-2 rounded-full  text-sm font-semibold transition group-hover:opacity-90 border-white   bg-black  text-black`}
         >
