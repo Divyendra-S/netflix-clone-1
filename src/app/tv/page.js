@@ -14,6 +14,8 @@ import { Navbar } from "@/components/navbar";
 import { MediaItem } from "@/components/media-item";
 import CircleLoader from "@/components/Loader";
 import { motion } from "framer-motion";
+import { Axios } from "@/helper/httpHelper";
+import { ManageAccounts } from "@/components/manageAccounts";
 
 
 
@@ -72,6 +74,7 @@ export default function Tv(){
   }, [session, LoggedIn]);
   if (session === null) return <UnAuthPage />;
   if (loader) return <CircleLoader />;
+  if (LoggedIn === null) return <ManageAccounts />;
   
   console.log(media?.[0]?.Medias, "mediaaaaaaaaa");
 
