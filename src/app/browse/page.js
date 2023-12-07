@@ -19,6 +19,7 @@ export default function Browse() {
   const { LoggedIn, pageLoader, setMedia, media, favorites, setFavorites } =
     useContext(AppContext);
   const { data: session } = useSession();
+  console.log("ssssssssssssssssssssssssss",session)
   const getAllFavorites = async () => {
     try {
       const data = await Axios.get(

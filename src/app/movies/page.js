@@ -15,6 +15,7 @@ import { MediaItem } from "@/components/media-item";
 import { motion } from "framer-motion";
 import CircleLoader from "@/components/Loader";
 import { ManageAccounts } from "@/components/manageAccounts";
+import { Axios } from "@/helper/httpHelper";
 
 export default function Movies() {
   const[loader, setLoader] = useState(false);
