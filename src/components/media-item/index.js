@@ -86,7 +86,6 @@ export const MediaItem = ({ media, id }) => {
   // }, [fetchData])
 
   if (session === null) return <UnAuthPage />;
-  //if (Loader) return <CircleLoader />;
   if (LoggedIn === null) return <ManageAccounts />;
   return (
     <motion.div
@@ -115,7 +114,7 @@ export const MediaItem = ({ media, id }) => {
           
           
         // }}
-        className={`opacity-0 cursor-pointer border flex p-2 items-center  rounded-full  text-sm font-semibold transition group-hover:opacity-90 border-white   bg-black  text-black`}
+        className={`opacity-0 cursor-pointer border flex px-1 py-2 items-center w-auto  rounded-full  text-sm font-semibold transition group-hover:opacity-90 border-white   bg-black  text-black`}
       >
         
         {Loader ? (
