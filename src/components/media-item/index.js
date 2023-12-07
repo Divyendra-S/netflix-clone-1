@@ -16,6 +16,7 @@ import { IoTrashBinOutline } from "react-icons/io5";
 import CircleLoader from "../Loader";
 import { Loader } from "lucide-react";
 import ThreeDotsLoader from "../ThreeDotloader";
+import { toast } from "react-toastify";
 //import mission from '../../../public/mission.jpg' /Users/divyendra/Documents/netflix-clone1/my-net/public/mission.jpg
 const baseUrl = "https://image.tmdb.org/t/p/w500";
 
@@ -60,9 +61,11 @@ export const MediaItem = ({ media, id }) => {
       });
 
       await getAllFavorites(session?.user?.uid, LoggedIn?._id);
+      toast.success("added to Your List ");
       setLoader(false);
     } catch (err) {
       console.log(err);
+      toast.error("this series/movie already exists");
     }
   };
   
