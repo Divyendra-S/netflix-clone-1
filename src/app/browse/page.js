@@ -19,10 +19,10 @@ export default function Browse() {
   const { LoggedIn, pageLoader, setMedia, media, favorites, setFavorites } =
     useContext(AppContext);
   const { data: session } = useSession();
-  const getAllFavorites = async (id, accountID) => {
+  const getAllFavorites = async () => {
     try {
       const data = await Axios.get(
-        `/api/favorites/getAllFavorite?id=${id}&accountId=${accountID}`
+        `/api/favorites/getAllFavorite?id=${session?.user?.uid}&accountId=${LoggedIn?._id}`
       );
 
       if (data) {
@@ -48,10 +48,7 @@ export default function Browse() {
       const getPopularTv = await GetPopularMedias("tv");
       const getTrendingTv = await GetTrendingMedias("tv");
       const getTopratedTv = await GetTopratedMedias("tv");
-      const allFavorites = await getAllFavorites(
-        session?.user?.uid,
-        LoggedIn?._id
-      );
+      const allFavorites = await getAllFavorites();
       console.log(allFavorites?.data.data, "alllllll");
       console.log("getPopularMovies", getTrendingMovies);
       setLoader(false);
