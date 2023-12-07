@@ -14,6 +14,7 @@ import { Navbar } from "@/components/navbar";
 import { MediaItem } from "@/components/media-item";
 import { motion } from "framer-motion";
 import CircleLoader from "@/components/Loader";
+import { ManageAccounts } from "@/components/manageAccounts";
 
 export default function Movies() {
   const[loader, setLoader] = useState(false);
