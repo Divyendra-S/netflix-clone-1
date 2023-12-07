@@ -20,12 +20,35 @@ export default function Movies() {
 
   const { LoggedIn, setMedia, media } = useContext(AppContext);
   const { data: session } = useSession();
+  const getAllFavorites = async (id, accountID) => {
+    try {
+      const data = await Axios.get(
+        `/api/favorites/getAllFavorite?id=${id}&accountId=${accountID}`
+      );
+
+      if (data) {
+        setFavorites(
+          data.data.data.map((item) => ({
+            ...item,
+            addedToFavorites: true,
+          }))
+        );
+      }
+      return data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
   useEffect(() => {
     const getAllMedia = async () => {
       setLoader(true);
       const getPopularMovies = await GetPopularMedias("movie");
       const getTrendingMovies = await GetTrendingMedias("movie");
       const getTopratedMovies = await GetTopratedMedias("movie");
+      const allFavorites = await getAllFavorites(
+        session?.user?.uid,
+        LoggedIn?._id
+      );
       console.log("getPopularMovies", getTrendingMovies);
       setLoader(false);
 
@@ -35,6 +58,10 @@ export default function Movies() {
           Medias: item.Medias.map((medias) => ({
             ...medias,
             type: "movies",
+            addedToFavorites: allFavorites && allFavorites?.data.data.length
+            ? allFavorites?.data.data.map((fav) => fav.movieID).indexOf(medias.id) >
+              -1
+            : false,
           })),
         })),
       ]);
