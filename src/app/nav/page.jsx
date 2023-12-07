@@ -60,7 +60,7 @@ export default function Nav() {
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7 }}
-        className="flex flex-col w-full  text-white items-center  mt-36 gap-y-16 text-5xl"
+        className="flex flex-col w-full  text-white items-center  mt-36 mb-10 gap-y-16 text-5xl"
       >
         {navigation.map((item, id) => (
           <motion.div
