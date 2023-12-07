@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { AppContext } from "@/context";
 import { useContext, useEffect, useState,useCallback } from "react";
 import { motion } from "framer-motion";
+import { ManageAccounts } from "../manageAccounts";
 import {
   PlusIcon,
   ChevronDownIcon,
